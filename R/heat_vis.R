@@ -81,6 +81,9 @@ heat_vis <- function(
   mirna_exp <- mirna_da[mirna, ]
   mrna_exp <- mrna_da[gene, ]
 
-  gplots::heatmap.2(mirna_exp, cexRow = 0.5, cexCol = 0.5)
-  gplots::heatmap.2(mrna_exp, cexRow = 0.5, cexCol = 0.5)
-}
+  hmcols <- rev(gplots::redgreen(1000))
+
+  gplots::heatmap.2(mirna_exp, col = hmcols, cexRow = 0.7, cexCol = 0.7, margins = c(6, 6))
+  gplots::heatmap.2(mrna_exp, col = hmcols,  cexRow = 0.7, cexCol = 0.7, margins = c(6, 6))
+
+  }
