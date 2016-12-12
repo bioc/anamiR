@@ -1,4 +1,4 @@
----
+ ---
 title: "Introduction to anamiR"
 author: "anamiR Developers"
 date: "`r Sys.Date()`"
@@ -255,6 +255,17 @@ Note that in our assumption, miRNAs negatively regulate
 expression of their target genes, that is, cut.off basically
 should be negative decimal.
 
+### Heat map (optional)
+
+There is a function for user to see the heatmaps about 
+the miRNA-target gene interactions remaining in the 
+correlation analysis table.
+
+```{r}
+heat_vis(cor, mrna_d, mirna_21)
+```
+
+
 ### Intersect with Databases
 
 After correlation analysis, we have some potential interactions,
@@ -277,16 +288,6 @@ head(sup)
 Note that we have 8 predict databases (DIANA microT CDS, EIMMo,
 Microcosm, miRDB, miRanda, PITA, rna22, TargetScan) and 2
 validate databases (miRecords, miRTarBase).
-
-### Heat map (optional)
-
-There is a function for user to see the heat map about 
-the miRNA-target gene interactions remaining in the 
-table.
-
-```{r}
-heat_vis(sup)
-```
 
 ### Functional Analysis
 

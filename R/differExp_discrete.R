@@ -99,8 +99,16 @@ differExp_discrete <- function(
 
     #Fold Changes
     foldchange_cal <- function(da, gp1, gp2) {
-      mean_gp1 <- apply(da[, gp1], 1, mean)
-      mean_gp2 <- apply(da[, gp2], 1, mean)
+      if (length(gp1) == 1) {
+        mean_gp1 <- da[, gp1]
+      } else {
+        mean_gp1 <- apply(da[, gp1], 1, mean)
+      }
+      if (length(gp2) == 1) {
+        mean_gp2 <- da[, gp2]
+      } else{
+        mean_gp2 <- apply(da[, gp2], 1, mean)
+      }
       FC <- mean_gp1 - mean_gp2
       return(FC)
     }
@@ -156,8 +164,8 @@ differExp_discrete <- function(
     DE_data <- cbind(DE_data, FC[idx], p_value[idx], p_adjust[idx])
     len_col <- ncol(DE_data)
     colnames(DE_data)[(len_col - 2):len_col] <- c("Fold-Change",
-                                                   "P-Value",
-                                                   "P-adjust")
+                                                  "P-Value",
+                                                  "P-adjust")
     FC_rows <- abs(DE_data[, len_col - 2])
     DE_data <- DE_data[which(FC_rows > foldchange), ]
     return(DE_data)
