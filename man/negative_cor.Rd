@@ -38,7 +38,7 @@ and miRNA from differential expressed data, which are produced by
 the positive and higher than cutoff value of correlation, this function
 would return a matrix with seven columns, including miRNA, gene, correlation
 coefficients and Fold change, P-adjust value for miRNA and gene. Each
-row represents one potential  miRNA-target gene interaction.
+row represents one potential miRNA-target gene interaction.
 }
 \examples{
 ## Use the internal dataset
