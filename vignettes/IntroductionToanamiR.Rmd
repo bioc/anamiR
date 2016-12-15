@@ -1,4 +1,4 @@
- ---
+---
 title: "Introduction to anamiR"
 author: "anamiR Developers"
 date: "`r Sys.Date()`"
