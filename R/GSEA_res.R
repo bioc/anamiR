@@ -46,7 +46,7 @@
 #' data(table_pre)
 #'
 #' result <- GSEA_res(table = table_pre, pheno.data = pheno.data,
-#'  class = "ER", DE_method = "limma")
+#'  class = "ER", DE_method = "limma", cor_cut = 0)
 #'
 #' @importFrom  SummarizedExperiment SummarizedExperiment
 #' @importFrom  S4Vectors SimpleList
@@ -56,16 +56,16 @@ GSEA_res <- function(
   pheno.data,
   class,
   DE_method = c("t.test",
-             "limma",
-             "wilcox.test",
-             "DESeq"),
+                "limma",
+                "wilcox.test",
+                "DESeq"),
   limma.trend = FALSE,
   t_test.var = FALSE,
   log2 = FALSE,
   p_adjust.method = "BH",
   cor_cut = -0.3
 ) {
-  cor_table <- list()
+  sup_table <- list()
   #workflow
   n <- length(table) / 2
   for (i in seq_len(n)) {
@@ -87,19 +87,20 @@ GSEA_res <- function(
                                     p_value.cutoff = 1,
                                     p_adjust.method = p_adjust.method)
     mrna_dif <- differExp_discrete(se = mrna_se,
-                                    class = class, method = DE_method,
-                                    limma.trend = limma.trend,
-                                    t_test.var = t_test.var,
-                                    log2 = log2, logratio = 0,
-                                    p_value.cutoff = 1,
-                                    p_adjust.method = p_adjust.method)
+                                   class = class, method = DE_method,
+                                   limma.trend = limma.trend,
+                                   t_test.var = t_test.var,
+                                   log2 = log2, logratio = 0,
+                                   p_value.cutoff = 1,
+                                   p_adjust.method = p_adjust.method)
 
     cor <- negative_cor(mrna_data = mrna_dif, mirna_data = mirna_dif,
                         cut.off = cor_cut)
-    cor_table[[i]] <- cor
+    sup <- database_support(cor_data = cor, org = "hsa",
+                            Sum.cutoff = 1)
+    sup_table[[i]] <- sup
     name <- strsplit(names(table)[2 * i], "-")[[1]][1]
-    names(cor_table)[i] <- name
+    names(sup_table)[i] <- name
   }
-
-  return(cor_table)
+  return(sup_table)
 }
